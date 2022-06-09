@@ -1,0 +1,43 @@
+Subtask1: 
+
+Warming up to compiling and debugging some C++ functions. 
+
+Details:
+
+Implement the following functions using 32 bit float as datatype.
+
+	- fully connected (FC) layer that computes inner product of an input matrix of dimensions AxB and a weight matrix of dimensions BxC, to output a matrix of dimension AxC. To this output, a bias vector of dimension AXC is then added elementwise.
+	- non-linear activations of an input matrix of any size with relu and tanh functions on individual matrix elements.
+	- subsampling of square input matrices of any size with max pooling and average pooling functions
+	- converting a vector of random floats to a vector of probabilities with softmax and sigmoid functions
+
+We will test each function with different inputs in text files.
+
+	- vectors stored as single values in each line of the file
+	- matrices stored in column major order in each line of the file
+	
+	
+	
+Subtask2: 
+
+Code performance, learning plotting through scripts. 
+
+Details:
+
+Accelerate matrix multiplication speed for FC in your previous implementation with
+
+	- linear algebra libraries mkl and openblas. Are these libraries faster than your own C++ matrix multiplication?
+	- pthreads. Check for correct computation of the matrix multiplication results and synchronization issues with multiple threads if any.
+	- Measure mean and standard deviation of latencies of the three implementations (mkl, openblas and your pthread implementation) over different matrix sizes and plot a box plot with error bars using gnuplot. Can your own pthread based implementation match openblas, mkl speeds?
+
+In addition to previously mentioned command line ./yourcode.out fullyconnected inputmatrix.txt weightmatrix.txt biasmatrix.txt, there will be one additional command line option (mkl or oprnblas or pthread), to use the appropriate implementation. Again, we will test with different matrices. The outputs should be same across the different implementations (accurate) and the speed differences should match what you present in your graph.
+
+
+
+Subtask3: 
+
+Hierarchical code design, creating library and API. 
+
+Details:
+
+Implement a deep neural network (DNN) inference for classifying across 12 audio keywords (silence, unknown, yes, no, up, down, left, right, on, off, stop, go). [1x250] input features for each 1 second audio sample will be provided. Your DNN should comprise of FC1 [250x144] -> RELU -> FC2 [144x144] -> RELU -> FC3 [144X144] -> RELU -> FC4 [144x12] -> softmax. The output will be 12 floats representing probabilities for the 12 keywords, adding upto 1, the highest value giving the most probable keyword. Stitch together the most efficient functions you have written for FC, RELU, softmax so far. You will be given pre-trained weights and bias values and some 1 second audio clips with features extracted, to test your implementation. You will create your own audio processing library with an API we can call from a cpp program. Given feature vector of a 1 second audio clip, the API should return the top 3 keywords with highest softmax probabilities.
